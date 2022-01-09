@@ -449,8 +449,31 @@ footer input[type="submit"] {
     height: 200px !important;
 }
 
+.single-post-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.single-post-container article {
+    width: 66.66666666666666%;
+}
+
+.single-post-container aside {
+    width: 33.33333333333333%;
+    margin-left: 100px;
+    max-width: 282px;
+}
+
+.single-post-container aside h6 {
+    font-size: 20px;
+    line-height: 28px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
 .single-post-container h1 {
     margin-top: 50px;
+    margin-bottom: 10px;
     font-size: 28px;
     line-height: 36px;
     font-weight: 700; 
@@ -509,6 +532,41 @@ footer input[type="submit"] {
     font-size: 16px;
     line-height: 24px;
     overflow-wrap: break-word;
+}
+
+.sidebar-social-share {
+    display: flex;
+    flex-direction: row;
+    max-width: 264px;
+    margin-bottom: 10px;
+}
+
+.sidebar-social-share i {
+    box-sizing: border-box;
+    margin: 16px 24px 0px 0px;
+    min-width: 0px;
+    color: ##252b37;
+    font-size: 24px;
+    width: 1em;
+    height: 1em;
+}
+
+#related-post img {
+    box-sizing: border-box;
+    margin-top: 20px;
+    min-width: 0px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+#related-post h3 {
+    box-sizing: border-box;
+    margin: 0;
+    min-width: 0;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
 }
 
 /* one before the last child */
