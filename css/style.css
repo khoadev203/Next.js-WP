@@ -423,6 +423,10 @@ a:hover {
     white-space: nowrap;
 }
 
+.ft-legal-list li:nth-last-child(2) {
+    flex: 1;
+}
+
 footer form {
     display: flex;
     flex-wrap: wrap;
@@ -456,19 +460,6 @@ footer input[type="submit"] {
 
 .single-post-container article {
     width: 66.66666666666666%;
-}
-
-.single-post-container aside {
-    width: 33.33333333333333%;
-    margin-left: 100px;
-    max-width: 282px;
-}
-
-.single-post-container aside h6 {
-    font-size: 20px;
-    line-height: 28px;
-    margin-top: 50px;
-    margin-bottom: 10px;
 }
 
 .single-post-container h1 {
@@ -534,6 +525,21 @@ footer input[type="submit"] {
     overflow-wrap: break-word;
 }
 
+/* Sidebar */
+
+.single-post-container aside {
+    width: 33.33333333333333%;
+    margin-left: 100px;
+    max-width: 282px;
+}
+
+.single-post-container aside h6 {
+    font-size: 20px;
+    line-height: 28px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
 .sidebar-social-share {
     display: flex;
     flex-direction: row;
@@ -569,11 +575,12 @@ footer input[type="submit"] {
     line-height: 24px;
 }
 
-/* one before the last child */
-.ft-legal-list li:nth-last-child(2) {
-    flex: 1;       /* same as flex-grow: 1; */
-}
 
+/*
+*
+* MEDIA QUERIES
+*
+*/
 
 
  /* Extra small devices (phones, 600px and down) */
@@ -658,6 +665,20 @@ footer input[type="submit"] {
     #searchMobile {
         display: block;
     }
+
+    .single-post-container {
+        flex-direction: column;
+    }
+
+    .single-post-container article {
+        width: 100%;
+    }
+
+    .single-post-container aside {
+        margin-left: 0;
+        width: 100%;
+        max-width: 100%;
+    }
  }
  
  /* Medium devices (landscape tablets up to 768px) */
@@ -718,6 +739,20 @@ footer input[type="submit"] {
         display: block;
     }
 
+    .single-post-container {
+        flex-direction: column;
+    }
+
+    .single-post-container article {
+        width: 100%;
+    }
+
+    .single-post-container aside {
+        margin-left: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+
  }
  
  /* Large devices (laptops/desktops up to 992px) */
@@ -753,6 +788,16 @@ footer input[type="submit"] {
         display: none;
     }
 
+    .single-post-container article {
+        max-width: 75%;
+    }
+
+    .single-post-container aside {
+        width: 25%;
+        margin-left: 25px;
+        max-width: 282px;
+    }
+
  }
 
   /* Extra large devices (large laptops and desktops, 1200px and up until 1600px) */
@@ -781,6 +826,11 @@ footer input[type="submit"] {
         font-size: 13px;
         line-height: 13px;
         margin-top: 10px;
+    }
+
+    .single-post-container aside {
+        margin-left: 50px;
+        max-width: 225px;
     }
   }
  
