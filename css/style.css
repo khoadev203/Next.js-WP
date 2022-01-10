@@ -467,6 +467,7 @@ footer input[type="submit"] {
 .single-post-container {
     display: flex;
     flex-direction: row;
+    padding-bottom: 50px;
 }
 
 .single-post-container article {
@@ -881,8 +882,12 @@ footer input[type="submit"] {
  *
  */
 
- body.dark #logo span, body.dark .blog-title, body.dark .blog-info p, body.dark .slider-card-title h2, body.dark .slider-card-excerpt p, body.dark .slider-card-date, body.dark .catMenu a, body.dark .post-card-title h2, body.dark .post-card-excerpt p, body.dark .post-card-date span, body.dark .ft-title, body.dark footer a  {
+ body.dark #logo span, body.dark .blog-title, body.dark .blog-info p, body.dark .slider-card-title h2, body.dark .slider-card-excerpt p, body.dark .slider-card-date, body.dark .catMenu a, body.dark .post-card-title h2, body.dark .post-card-excerpt p, body.dark .post-card-date span, body.dark .ft-title, body.dark footer a, body.dark .single-post-container h1  {
     color: #fff;
+ }
+
+ body.dark .single-post-content h2, body.dark .single-post-content p, body.dark .single-post-date, body.dark #single-post-tags ul li, body.dark .single-post-container aside h6, body.dark .sidebar-social-share i, body.dark #related-post h3 {
+     color: #fff;
  }
 
  body.dark #menu-right .button {
@@ -893,14 +898,13 @@ footer input[type="submit"] {
  body.dark footer {
     color: #fff;
     background-color: #2b314a;
-
  }
 
- body.dark #header {
+ body.dark #header, body.dark #single-post-tags ul li {
     background-color: #2b314a;
  }
 
- body.dark #mainContainer {
+ body.dark #mainContainer, body.dark .single-post-container, body.dark {
     background-color: #1E2233;
  }
 
