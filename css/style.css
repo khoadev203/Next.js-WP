@@ -70,6 +70,7 @@ body {
 
 #mainContainer {
     flex: 1;
+    padding-bottom: 50px;
 }
 
 a:hover {
@@ -134,25 +135,35 @@ a:hover {
     margin-right: 10px;
 }
 
-#logo span {
-    font-weight: 600;
+.logotype {
+    background-image: url("https://perseodesign.ddns.net/cs-blog/img/blogger-logotype.svg");
+    background-position: center;
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    display: block;
 }
 
-.icon-night {
+#logo span {
+    font-weight: 600;
+    margin-left: 15px;
+}
+
+.icon-dark {
     background-image: url("https://www.coinsinergy.com/img/icon/Icona_Dark_Non_active.svg");
     margin-right: 0;
     cursor: pointer;
 }
 
-.icon-night.active {
+.icon-dark.active {
     background-image: url("https://www.coinsinergy.com/img/icon/Icona_Dark_Active.svg");
 }
 
-.icon-day.active {
+.icon-light.active {
     background-image: url("https://www.coinsinergy.com/img/icon/Icona%20Light_Active.svg");
 }
 
-.icon-day {
+.icon-light {
     background-image: url("https://www.coinsinergy.com/img/icon/Icona_Light_Non_Active.svg");
     margin-right: 30px;
     cursor: pointer;
@@ -345,7 +356,7 @@ a:hover {
 footer {
     background-color: #fafafa;
     color: #000;
-    margin-top: 75px;
+    padding-top: 50px;
     text-transform: uppercase;
 }
 
@@ -407,7 +418,7 @@ a:hover {
 
 .ft-legal {
     padding: 10px 20px;
-    background-color: #252b37;
+    background-color: #1E2233;
     font-size: 11px;
     color: #fff;
 }
@@ -862,3 +873,37 @@ footer input[type="submit"] {
         margin-top: 10px;
     }
  } 
+
+
+ /*
+ *
+ * Dark Mode
+ *
+ */
+
+ body.dark #logo span, body.dark .blog-title, body.dark .blog-info p, body.dark .slider-card-title h2, body.dark .slider-card-excerpt p, body.dark .slider-card-date, body.dark .catMenu a, body.dark .post-card-title h2, body.dark .post-card-excerpt p, body.dark .post-card-date span, body.dark .ft-title, body.dark footer a  {
+    color: #fff;
+ }
+
+ body.dark #menu-right .button {
+    color: #fff;
+    border-bottom: 1px solid #fff;
+ }
+
+ body.dark footer {
+    color: #fff;
+    background-color: #2b314a;
+
+ }
+
+ body.dark #header {
+    background-color: #2b314a;
+ }
+
+ body.dark #mainContainer {
+    background-color: #1E2233;
+ }
+
+ body.dark .logotype {
+    background-image: url("https://perseodesign.ddns.net/cs-blog/img/blogger-logotype-light.svg");
+ }

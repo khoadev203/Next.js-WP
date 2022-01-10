@@ -14,6 +14,7 @@
   <meta property="og:url" content="https://perseodesign.ddns.net/cs-blog">
   <meta property="og:description" content="">
   <meta property="og:image" content="image.png">
+  <meta name="color-scheme" content="dark light">
     
   <link rel="icon" href="/favicon.ico">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -25,20 +26,20 @@
 
 </head>
 
-<body>
+<body class="">
     <!-- header -->
     <header id="header">
         <nav id="nav">
             <div id="logo">
-                <img src="img/blogger-logotype.svg" /> <span>Blog</span>
+                <div class="logotype"></div> <span>Blog</span>
             </div>
             <div id="menu-right">
                 <div class="button">
                 <a href="#">BACK TO DASHBOARD</a>
                 </div>
                 <div class="switchMode">
-                    <i class="icon icon-night" id="theme-night"></i>
-                    <i class="icon icon-day active" id="theme-day"></i>
+                    <i class="icon icon-dark" id="theme-dark"></i>
+                    <i class="icon icon-light active" id="theme-light"></i>
                 </div>
             </div>
         </nav>
@@ -219,6 +220,17 @@
                 speed: 1200,
                 autoplay: true
             });
+        });
+
+        $('#theme-dark').click(function(){
+            $('body').addClass('dark');
+            $('.icon-light').removeClass('active');
+            $('.icon-dark').addClass('active');
+        });
+        $('#theme-light').click(function(){
+            $('body').removeClass('dark');
+            $('.icon-light').addClass('active');
+            $('.icon-dark').removeClass('active');
         });
       </script>
 </body>
