@@ -7,7 +7,12 @@ function PostCard(props) {
     <Link href={`/post/${post.slug}`}>
     <div className="post-card">
       <div className="post-card-banner">
-        <img src="img/post-banner-01.jpg"/>
+        {
+          post.featured_media ?
+            <img src={post._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url} />
+            :
+            <img src="img/post-banner-01.jpg"/>
+        }
       </div>
       <div className="post-card-title">
         <h2>{post.title.rendered} </h2>

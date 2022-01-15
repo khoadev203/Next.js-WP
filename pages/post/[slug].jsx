@@ -25,7 +25,7 @@ function Post(props) {
             </ul>
           </div>
           <div className="single-post-banner">
-            <img src={media[0].source_url} />
+            <img src={media.source_url} />
           </div>
           <div className="single-post-content" dangerouslySetInnerHTML={{__html: post[0].content.rendered}}>
 
@@ -65,12 +65,11 @@ function Post(props) {
 }
 
 export async function getStaticProps({ params }) {
-  let res = await fetch(`${process.env.API_URL}/wp/v2/posts?slug=${params.slug}`)
+  let res = await fetch(`${process.env.API_URL}/wp/v2/posts?_embed&slug=${params.slug}`)
   const post = await res.json()
+  const media = post[0]._embedded['wp:featuredmedia'][0].media_details.sizes.full
   res = await fetch(`${process.env.API_URL}/wp/v2/tags?post=${post[0].id}`)
   const tags = await res.json()
-  res = await fetch(`${process.env.API_URL}/wp/v2/media?parent=${post[0].id}`)
-  const media = await res.json()
   return {
     props: {
       post,
