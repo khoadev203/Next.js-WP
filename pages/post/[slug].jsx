@@ -1,9 +1,12 @@
 import React from 'react';
+import Link from 'next/link';
 import Header from "../../components/header";
 import Footer from "../../components/footer";
+import {fetchRelatedPosts} from "../../lib/api";
 
 function Post(props) {
-  const {post, media, tags} = props
+  const {post, media, tags, relatedPosts} = props
+  console.log(relatedPosts)
   return(
     <>
       <Header />
@@ -43,18 +46,26 @@ function Post(props) {
           </div>
           <h6>Related Posts</h6>
           <div className="sidebar-related-posts">
-            <div id="related-post">
-              <img src="/img/post-banner-01.jpg" />
-                <h3>Ut risus metus, eleifend sit amet ullamcorper in, molestie ultrices nulla.</h3>
-            </div>
-            <div id="related-post">
-              <img src="/img/post-banner-02.jpg" />
-                <h3>Sed volutpat diam nec sem ornare porta. Nullam sagittis in nulla at sodales.</h3>
-            </div>
-            <div id="related-post">
-              <img src="/img/post-banner-03.jpg" />
-                <h3>Etiam a leo sed augue mattis ullamcorper. Etiam at tristique ligula.</h3>
-            </div>
+            {
+              relatedPosts.length ?
+                relatedPosts.map((post) => {
+                  return (
+                    <Link href={`/post/${post.slug}`}>
+                      <a className="related-post">
+                        {
+                          post.featured_media ?
+                            <img src={post._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url} />
+                            :
+                            <img src="img/post-banner-01.jpg"/>
+                        }
+                        <h3>{post.title.rendered}</h3>
+                      </a>
+                    </Link>
+                  )
+                })
+                :
+                <h4>No posts found</h4>
+            }
           </div>
         </aside>
       </div>
@@ -70,11 +81,13 @@ export async function getStaticProps({ params }) {
   const media = post[0]._embedded['wp:featuredmedia'][0].media_details.sizes.full
   res = await fetch(`${process.env.API_URL}/wp/v2/tags?post=${post[0].id}`)
   const tags = await res.json()
+  const relatedPosts = await fetchRelatedPosts(post[0].tags)
   return {
     props: {
       post,
       tags,
-      media
+      media,
+      relatedPosts
     }
   }
 }

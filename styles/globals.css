@@ -579,7 +579,7 @@ footer input[type="submit"] {
   height: 1em;
 }
 
-#related-post img {
+.related-post img {
   box-sizing: border-box;
   margin-top: 20px;
   min-width: 0px;
@@ -588,7 +588,7 @@ footer input[type="submit"] {
   border-radius: 8px;
 }
 
-#related-post h3 {
+.related-post h3 {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -896,7 +896,7 @@ body.dark #logo span, body.dark .blog-title, body.dark .blog-info p, body.dark .
   color: #fff;
 }
 
-body.dark .single-post-content h2, body.dark .single-post-content p, body.dark .single-post-date, body.dark #single-post-tags ul li, body.dark .single-post-container aside h6, body.dark .sidebar-social-share i, body.dark #related-post h3 {
+body.dark .single-post-content h2, body.dark .single-post-content p, body.dark .single-post-date, body.dark #single-post-tags ul li, body.dark .single-post-container aside h6, body.dark .sidebar-social-share i, body.dark .related-post h3 {
   color: #fff;
 }
 
