@@ -3,8 +3,7 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 
 function Post(props) {
-  const {post} = props
-  console.log(post)
+  const {post, media, tags} = props
   return(
     <>
       <Header />
@@ -15,10 +14,10 @@ function Post(props) {
           <div id="single-post-tags">
             <ul>
               {
-                post[0].tags.length ?
-                post[0].tags.map((index, tag) => {
+                tags.length ?
+                tags.map((tag, index) => {
                   return (
-                    <li key={index}>{tag}</li>
+                    <li key={index}>{tag.name}</li>
                   )
                 })
                   : ''
@@ -26,7 +25,7 @@ function Post(props) {
             </ul>
           </div>
           <div className="single-post-banner">
-            <img src="/img/03.jpg" />
+            <img src={media[0].source_url} />
           </div>
           <div className="single-post-content" dangerouslySetInnerHTML={{__html: post[0].content.rendered}}>
 
@@ -66,9 +65,19 @@ function Post(props) {
 }
 
 export async function getStaticProps({ params }) {
-  const res = await fetch(`${process.env.API_URL}/wp/v2/posts?slug=${params.slug}`)
+  let res = await fetch(`${process.env.API_URL}/wp/v2/posts?slug=${params.slug}`)
   const post = await res.json()
-  return { props: { post } }
+  res = await fetch(`${process.env.API_URL}/wp/v2/tags?post=${post[0].id}`)
+  const tags = await res.json()
+  res = await fetch(`${process.env.API_URL}/wp/v2/media?parent=${post[0].id}`)
+  const media = await res.json()
+  return {
+    props: {
+      post,
+      tags,
+      media
+    }
+  }
 }
 
 export async function getStaticPaths() {

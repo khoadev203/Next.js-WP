@@ -1,13 +1,64 @@
-import React from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import Carousel from "../components/carousel";
 import Categories from "../components/categories";
 import PostCard from "../components/post-card";
+import AppContext from "../lib/AppContext";
+import {fetchCategories, fetchPosts} from "../lib/api";
+import InfiniteScroll from "react-infinite-scroll-component";
+import debounce from 'lodash.debounce'
 
 function Home(props) {
-  const {categories, posts} = props
-  console.log(posts)
+  const context = useContext(AppContext)
+  const {category} = context.state
+  const [posts, setPosts] = useState([])
+  const [page, setPage] = useState(1)
+  const [hasMore, setHasMore] = useState(true)
+  const [keyword, setKeyword] = useState('')
+  let {categories, initialPosts} = props
+
+  useEffect(() => {
+    setPosts(initialPosts)
+    setPage(2)
+  },[])
+
+  useEffect(async () => {
+    let posts = await fetchPosts(1, category)
+    setPosts(posts)
+    setPage(2)
+    if(posts.length) {
+      setHasMore(true)
+    }else {
+      setHasMore(false)
+    }
+  }, [category])
+
+  useEffect(async () => {
+    await searchPosts()
+  }, [keyword])
+
+  async function getMorePosts() {
+    let nextPosts = await fetchPosts(page, category, keyword)
+    if(Array.isArray(nextPosts) && nextPosts.length) {
+      setPosts([...posts, ...nextPosts])
+      setPage(page+1)
+    }else {
+      setHasMore(false)
+    }
+  }
+
+  const searchPosts = debounce(async () => {
+    let posts = await fetchPosts(1, category, keyword)
+    if(posts.length) {
+      setPosts(posts)
+      setPage(2)
+      setHasMore(true)
+    }else {
+      setPosts([])
+      setHasMore(false)
+    }
+  }, 500)
   return (
     <>
       <Header />
@@ -22,19 +73,25 @@ function Home(props) {
       <div className="catNav container">
         <Categories categories={categories} />
         <div id="searchDesktop" className="search-container">
-          <input className="search-input" type="search" placeholder="Search" />
+          <input className="search-input" type="search" placeholder="Search" value={keyword} onChange={(e) => setKeyword(e.target.value)} />
         </div>
       </div>
-
+      <InfiniteScroll
+        next={() => getMorePosts()}
+        hasMore={hasMore}
+        loader={<h4 className="not-found">Loading...</h4>}
+        dataLength={posts.length}>
       <div className="postsRow container">
-        {posts.length &&
+        {posts.length ?
           posts.map((post,index) => {
             return (
               <PostCard key={`post_${post.id}`} post={post} />
             )
           })
+          : <h1 className="not-found">No posts found</h1>
         }
       </div>
+      </InfiniteScroll>
     </div>
       <Footer/>
     </>
@@ -42,14 +99,12 @@ function Home(props) {
 }
 
 export async function getServerSideProps() {
-  let res = await fetch(`${process.env.API_URL}/wp/v2/categories`)
-  const categories = await res.json()
-  res = await fetch(`${process.env.API_URL}/wp/v2/posts`)
-  const posts = await res.json()
+  const categories = await fetchCategories()
+  const initialPosts = await fetchPosts(1, 'All')
   return {
     props: {
       categories,
-      posts
+      initialPosts
     }
   }
 }

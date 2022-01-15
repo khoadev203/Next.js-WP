@@ -285,6 +285,15 @@ a:hover {
   margin-right: auto;
 }
 
+.catMenu a.active {
+  color: #3367D6;
+}
+
+.not-found {
+  text-align: center;
+  width: 100%;
+  font-size: 26px;
+}
 
 .search-input {
   border: 2px solid #999999;
@@ -304,10 +313,11 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  flex: 1;
+  flex-wrap: wrap;
 }
 
 .post-card {
+  flex: 1 1 30%;
   max-width: 350px;
   width: 100%;
   margin: 5px;
