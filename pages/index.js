@@ -5,7 +5,7 @@ import Carousel from "../components/carousel";
 import Categories from "../components/categories";
 import PostCard from "../components/post-card";
 import AppContext from "../lib/AppContext";
-import {fetchCategories, fetchPosts} from "../lib/api";
+import {fetchCategories, fetchFeaturedPosts, fetchPosts} from "../lib/api";
 import InfiniteScroll from "react-infinite-scroll-component";
 import debounce from 'lodash.debounce'
 
@@ -16,7 +16,7 @@ function Home(props) {
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const [keyword, setKeyword] = useState('')
-  let {categories, initialPosts} = props
+  let {categories, initialPosts, featuredPosts} = props
 
   useEffect(() => {
     setPosts(initialPosts)
@@ -64,7 +64,7 @@ function Home(props) {
       <Header />
 
     <div id="mainContainer">
-      <Carousel />
+      <Carousel featuredPosts={featuredPosts} />
       <div id="searchMobile" className="container">
         <div className="search-container">
           <input className="search-input" type="search" placeholder="Search" />
@@ -101,10 +101,12 @@ function Home(props) {
 export async function getServerSideProps() {
   const categories = await fetchCategories()
   const initialPosts = await fetchPosts(1, 'All')
+  const featuredPosts = await fetchFeaturedPosts()
   return {
     props: {
       categories,
-      initialPosts
+      initialPosts,
+      featuredPosts
     }
   }
 }

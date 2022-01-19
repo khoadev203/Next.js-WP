@@ -208,7 +208,7 @@ a:hover {
   margin-top: 50px !important;
 }
 
-.slider-container, #sliderCard01, #sliderCard02 {
+.slider-container, .sliderCard {
   display: flex !important;
 }
 
@@ -643,7 +643,7 @@ footer input[type="submit"] {
     text-align: center;
   }
 
-  #sliderCard01, #sliderCard02, .postsRow, .ft-main {
+  .sliderCard, .postsRow, .ft-main {
     flex-direction: column;
   }
 
@@ -722,7 +722,7 @@ footer input[type="submit"] {
     justify-content: start;
   }
 
-  #sliderCard01, #sliderCard02, .postsRow, .ft-main {
+  .sliderCard, .postsRow, .ft-main {
     flex-direction: row;
   }
 

@@ -3,12 +3,29 @@ import Link from 'next/link';
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import {fetchRelatedPosts} from "../../lib/api";
+import Head from "next/head";
 
 function Post(props) {
   const {post, media, tags, relatedPosts} = props
-  console.log(relatedPosts)
   return(
     <>
+      <Head>
+        {
+          post[0].yoast_head
+          ? (
+            <>
+              <meta name="og:locale" content={post[0].yoast_head_json.og_locale} />
+              <meta name="og:type" content={post[0].yoast_head_json.og_type} />
+              <meta name="og:title" content={post[0].yoast_head_json.og_title} />
+              <meta name="og:url" content={post[0].yoast_head_json.og_url} />
+              <meta name="og:description" content={post[0].yoast_head_json.og_description} />
+              <meta name="og:image" content={post[0].yoast_head_json.twitter_image} />
+              <meta name="description" content={post[0].yoast_head_json.description} />
+              <title>{post[0].yoast_head_json.title}</title>
+            </>
+            ) : ''
+        }
+      </Head>
       <Header />
       <div className="container single-post-container">
         <article>
