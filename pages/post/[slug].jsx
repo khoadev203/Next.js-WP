@@ -1,12 +1,18 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import {fetchRelatedPosts} from "../../lib/api";
 import Head from "next/head";
+import SocialShare from "../../components/social-share";
 
 function Post(props) {
   const {post, media, tags, relatedPosts} = props
+  const [url, setUrl] = useState('')
+  useEffect(() => {
+    setUrl(window.location.href)
+  }, [])
+
   return(
     <>
       <Head>
@@ -52,15 +58,7 @@ function Post(props) {
           </div>
         </article>
         <aside>
-          <h6>Share Posts</h6>
-          <div className="sidebar-social-share">
-            <i className="fab fa-twitter"></i>
-            <i className="fab fa-facebook"></i>
-            <i className="fab fa-telegram"></i>
-            <i className="fab fa-reddit"></i>
-            <i className="fab fa-vk"></i>
-            <i className="fab fa-weibo"></i>
-          </div>
+          <SocialShare post={post[0]} url={url} />
           <h6>Related Posts</h6>
           <div className="sidebar-related-posts">
             {
