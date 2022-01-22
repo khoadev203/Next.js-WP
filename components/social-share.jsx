@@ -8,7 +8,7 @@ function SocialShare(props) {
       <div className="sidebar-social-share">
         <a className="twitter-share-button"
            target="_blank"
-           href={`https://twitter.com/intent/tweet?text=${post.title.rendered}`}
+           href={`https://twitter.com/intent/tweet?url=${url}&text=${post.title.rendered}`}
            data-size="large">
           <i className="fab fa-twitter"></i>
         </a>
