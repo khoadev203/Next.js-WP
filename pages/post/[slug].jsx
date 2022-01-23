@@ -11,7 +11,7 @@ function Post(props) {
   const [url, setUrl] = useState('')
   useEffect(() => {
     setUrl(window.location.href)
-  }, [])
+  }, [post])
 
   return(
     <>
@@ -20,12 +20,12 @@ function Post(props) {
           post[0].yoast_head
           ? (
             <>
-              <meta name="og:locale" content={post[0].yoast_head_json.og_locale} />
-              <meta name="og:type" content={post[0].yoast_head_json.og_type} />
-              <meta name="og:title" content={post[0].yoast_head_json.og_title} />
-              <meta name="og:url" content={post[0].yoast_head_json.og_url} />
-              <meta name="og:description" content={post[0].yoast_head_json.og_description} />
-              <meta name="og:image" content={post[0].yoast_head_json.twitter_image} />
+              <meta property="og:locale" content={post[0].yoast_head_json.og_locale} />
+              <meta property="og:type" content={post[0].yoast_head_json.og_type} />
+              <meta property="og:title" content={post[0].yoast_head_json.og_title} />
+              <meta property="og:url" content={post[0].yoast_head_json.og_url} />
+              <meta property="og:description" content={post[0].yoast_head_json.og_description} />
+              <meta property="og:image" content={post[0].yoast_head_json.twitter_image} />
               <meta name="description" content={post[0].yoast_head_json.description} />
               <title>{post[0].yoast_head_json.title}</title>
             </>
