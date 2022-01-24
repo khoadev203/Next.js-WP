@@ -93,7 +93,10 @@ function Post(props) {
 export async function getStaticProps({ params }) {
   let res = await fetch(`${process.env.API_URL}/wp/v2/posts?_embed&slug=${params.slug}`)
   const post = await res.json()
-  const media = post[0]._embedded['wp:featuredmedia'][0].media_details.sizes.full
+  let media = {}
+  if(post[0]._embedded['wp:featuredmedia']) {
+    media = post[0]._embedded['wp:featuredmedia'][0].media_details.sizes.full
+  }
   res = await fetch(`${process.env.API_URL}/wp/v2/tags?post=${post[0].id}`)
   const tags = await res.json()
   const relatedPosts = await fetchRelatedPosts(post[0].tags)
