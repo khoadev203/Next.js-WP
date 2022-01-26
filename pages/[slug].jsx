@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
-import Header from "../../components/header";
-import Footer from "../../components/footer";
-import {fetchRelatedPosts} from "../../lib/api";
+import Header from "../components/header";
+import Footer from "../components/footer";
+import {fetchRelatedPosts} from "../lib/api";
 import Head from "next/head";
-import SocialShare from "../../components/social-share";
+import SocialShare from "../components/social-share";
 
 function Post(props) {
   const {post, media, tags, relatedPosts} = props
@@ -65,7 +65,7 @@ function Post(props) {
               relatedPosts.length ?
                 relatedPosts.map((post) => {
                   return (
-                    <Link href={`/post/${post.slug}`}>
+                    <Link href={`/${post.slug}`}>
                       <a className="related-post">
                         {
                           post.featured_media ?

@@ -4,7 +4,7 @@ import Link from 'next/link'
 function PostCard(props) {
   const {post} = props
   return (
-    <Link href={`/post/${post.slug}`}>
+    <Link href={`/${post.slug}`}>
     <div className="post-card">
       <div className="post-card-banner">
         {
