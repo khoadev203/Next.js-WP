@@ -5,7 +5,7 @@ import Carousel from "../components/carousel";
 import Categories from "../components/categories";
 import PostCard from "../components/post-card";
 import AppContext from "../lib/AppContext";
-import {fetchCategories, fetchFeaturedPosts, fetchPosts} from "../lib/api";
+import {fetchCategories, fetchFeaturedPosts, fetchPosts, fetchSiteInfos} from "../lib/api";
 import InfiniteScroll from "react-infinite-scroll-component";
 import debounce from 'lodash.debounce'
 
@@ -16,11 +16,12 @@ function Home(props) {
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const [keyword, setKeyword] = useState('')
-  let {categories, initialPosts, featuredPosts} = props
+  let {categories, initialPosts, featuredPosts, siteInfos} = props
 
   useEffect(() => {
     setPosts(initialPosts)
     setPage(2)
+    context.setSiteInfos(siteInfos)
   },[])
 
   useEffect(async () => {
@@ -102,11 +103,13 @@ export async function getServerSideProps() {
   const categories = await fetchCategories()
   const initialPosts = await fetchPosts(1, 'All')
   const featuredPosts = await fetchFeaturedPosts()
+  const siteInfos = await fetchSiteInfos();
   return {
     props: {
       categories,
       initialPosts,
-      featuredPosts
+      featuredPosts,
+      siteInfos
     }
   }
 }

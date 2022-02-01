@@ -5,13 +5,16 @@ import {useState} from "react";
 function MyApp({ Component, pageProps }) {
   const [mode, setMode] = useState('light')
   const [category, setCategory] = useState('All')
+  const [siteInfos, setSiteInfos] = useState({})
   const context = {
     state: {
       mode,
-      category
+      category,
+      siteInfos
     },
     setMode,
-    setCategory
+    setCategory,
+    setSiteInfos
   }
   return (
     <AppContext.Provider value={context}>

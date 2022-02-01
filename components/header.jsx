@@ -3,7 +3,7 @@ import AppContext from "../lib/AppContext";
 
 function Header(props) {
   const context = useContext(AppContext)
-  let {mode} = context.state
+  let {mode, siteInfos} = context.state
   useEffect(() => {
     document.querySelector('body').classList.remove(mode == 'light' ? 'dark' : 'light')
     document.querySelector('body').classList.add(mode)
@@ -27,10 +27,9 @@ function Header(props) {
       </nav>
       <div className="blog-info container">
         <h1 className="blog-title">
-          Blog
+          {siteInfos.name}
         </h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut nunc sollicitudin, rutrum lacus non,
-          tincidunt felis.</p>
+        <p>{siteInfos.description}</p>
       </div>
     </header>
   );
