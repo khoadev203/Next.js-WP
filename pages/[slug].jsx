@@ -58,6 +58,14 @@ function Post(props) {
           </div>
         </article>
         <aside>
+          {
+            post[0].asin ?
+              <iframe width={120} height={240} style={{width:'120px',height:'240px'}} marginWidth="0" marginHeight="0" scrolling="no" frameBorder="0"
+                      src={`//rcm-eu.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=effettoplacebo-21&o=29&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=${post[0].asin}&linkId=4ad00ce0073be432e5cd9a2d65b6d620`}></iframe>
+              :
+              ''
+          }
+
           <SocialShare post={post[0]} url={url} />
           <h6>Related Posts</h6>
           <div className="sidebar-related-posts">
