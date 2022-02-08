@@ -15,7 +15,7 @@ function PostCard(props) {
         }
       </div>
       <div className="post-card-title">
-        <h2>{post.title.rendered} </h2>
+        <h2 dangerouslySetInnerHTML={{__html: post.title.rendered}}></h2>
       </div>
       <div className="post-card-excerpt" dangerouslySetInnerHTML={{__html: post.excerpt.rendered}}>
 

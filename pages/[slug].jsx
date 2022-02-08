@@ -35,7 +35,7 @@ function Post(props) {
       <Header />
       <div className="container single-post-container">
         <article>
-          <h1>{post[0].title.rendered}</h1>
+          <h1 dangerouslySetInnerHTML={{__html: post[0].title.rendered}}></h1>
           <span className="single-post-date">{post[0].date.split('T')[0]}</span>
           <div id="single-post-tags">
             <ul>
