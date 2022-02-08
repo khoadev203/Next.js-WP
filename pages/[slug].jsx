@@ -50,9 +50,13 @@ function Post(props) {
               }
             </ul>
           </div>
-          <div className="single-post-banner">
-            <img src={media.source_url} />
-          </div>
+          {
+            media ?
+              <div className="single-post-banner">
+                <img src={media.source_url} />
+              </div>
+              : ''
+          }
           <div className="single-post-content" dangerouslySetInnerHTML={{__html: post[0].content.rendered}}>
 
           </div>
