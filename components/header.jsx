@@ -12,8 +12,15 @@ function Header(props) {
     <header id="header">
       <nav id="nav">
         <div id="logo">
-          <div className="logotype"></div>
-          <span>Blog</span>
+          {
+            siteInfos._embedded ?
+              <img src={`${siteInfos._embedded['wp:featuredmedia'][0].source_url}`} />
+              :
+              <>
+                <div className="logotype"></div>
+                <span>Blog</span>
+              </>
+          }
         </div>
         <div id="menu-right">
           <div className="button">

@@ -8,10 +8,10 @@ function PostCard(props) {
     <div className="post-card">
       <div className="post-card-banner">
         {
-          post.featured_media ?
+          post.featured_media && post._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail ?
             <img src={post._embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url} />
             :
-            <img src="img/post-banner-01.jpg"/>
+            <img src="/img/placebo-effect.webp"/>
         }
       </div>
       <div className="post-card-title">
