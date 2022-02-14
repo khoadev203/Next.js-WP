@@ -105,7 +105,7 @@ function Post(props) {
   );
 }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   let res = await fetch(`${process.env.API_URL}/wp/v2/posts?_embed&slug=${params.slug}`)
   const post = await res.json()
   let media = {}
@@ -128,12 +128,12 @@ export async function getStaticProps({ params }) {
   }
 }
 
-export async function getStaticPaths() {
-  const res = await fetch(`${process.env.API_URL}/wp/v2/posts`)
-  const posts = await res.json()
-  const paths = posts.map((post) => ({
-    params: { slug: post.slug },
-  }))
-  return { paths, fallback: false }
-}
+// export async function getStaticPaths() {
+//   const res = await fetch(`${process.env.API_URL}/wp/v2/posts`)
+//   const posts = await res.json()
+//   const paths = posts.map((post) => ({
+//     params: { slug: post.slug },
+//   }))
+//   return { paths, fallback: false }
+// }
 export default Post;
