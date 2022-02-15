@@ -955,3 +955,7 @@ body.dark .logotype {
 .slick-dots li div {
   height: 100%;
 }
+
+.slider-card-excerpt .more-link {
+  display: none;
+}
