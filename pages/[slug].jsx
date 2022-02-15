@@ -115,7 +115,12 @@ export async function getServerSideProps({ params }) {
   res = await fetch(`${process.env.API_URL}/wp/v2/tags?post=${post[0].id}`)
   const tags = await res.json()
   const relatedPosts = await fetchRelatedPosts(post[0].tags)
-  let words = post[0].content.rendered.replace(/(<([^>]+)>)/gi, "").length;
+  let words = post[0].content.rendered.replace(/(<([^>]+)>)/gi, "")
+    .replace(/\s+/g, ' ')
+    .replace(/\n/g, '')
+    .trim()
+    .match(/(\w+)/g)
+    .length;
   const avg_time = Math.ceil(words / 250);
   return {
     props: {
