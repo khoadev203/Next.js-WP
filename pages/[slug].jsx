@@ -1,17 +1,27 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Link from 'next/link';
 import Header from "../components/header";
 import Footer from "../components/footer";
-import {fetchRelatedPosts} from "../lib/api";
+import {fetchRelatedPosts, fetchSiteInfos} from "../lib/api";
 import Head from "next/head";
 import SocialShare from "../components/social-share";
+import AppContext from "../lib/AppContext";
 
 function Post(props) {
   const {post, media, tags, relatedPosts, avg_time} = props
   const [url, setUrl] = useState('')
+  const context = useContext(AppContext)
+  let {mode, siteInfos} = context.state
+
   useEffect(() => {
     setUrl(window.location.href)
   }, [post])
+  useEffect(async () => {
+    if(!Object.keys(siteInfos).length) {
+      const infos = await fetchSiteInfos();
+      context.setSiteInfos(infos)
+    }
+  }, [])
 
   return(
     <>
@@ -37,8 +47,8 @@ function Post(props) {
         <article>
           <h1 dangerouslySetInnerHTML={{__html: post[0].title.rendered}}></h1>
           <span className="single-post-date">{post[0].date.split('T')[0]}</span>
-          <p>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width={18} height={18}>
+          <p className="average_time">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width={14} height={14} fill="#707a8a">
               <path d="M0 24C0 10.75 10.75 0 24 0H360C373.3 0 384 10.75 384 24C384 37.25 373.3 48 360 48H352V66.98C352 107.3 335.1 145.1 307.5 174.5L225.9 256L307.5 337.5C335.1 366 352 404.7 352 445V464H360C373.3 464 384 474.7 384 488C384 501.3 373.3 512 360 512H24C10.75 512 0 501.3 0 488C0 474.7 10.75 464 24 464H32V445C32 404.7 48.01 366 76.52 337.5L158.1 256L76.52 174.5C48.01 145.1 32 107.3 32 66.98V48H24C10.75 48 0 37.25 0 24V24zM99.78 384H284.2C281 379.6 277.4 375.4 273.5 371.5L192 289.9L110.5 371.5C106.6 375.4 102.1 379.6 99.78 384H99.78zM284.2 128C296.1 110.4 304 89.03 304 66.98V48H80V66.98C80 89.03 87 110.4 99.78 128H284.2z"/>
             </svg>
             <span style={{'margin-left': '8px'}}>{avg_time} mins</span>
@@ -71,9 +81,25 @@ function Post(props) {
         </article>
         <aside>
           {
-            post[0].asin ?
+            post[0].iframe1 ?
               <iframe width={120} height={240} style={{width:'120px',height:'240px'}} marginWidth="0" marginHeight="0" scrolling="no" frameBorder="0"
-                      src={`//rcm-eu.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=effettoplacebo-21&o=29&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=${post[0].asin}&linkId=4ad00ce0073be432e5cd9a2d65b6d620`}></iframe>
+                      src={post[0].iframe1}></iframe>
+              :
+              ''
+          }
+
+          {
+            post[0].iframe2 ?
+              <iframe width={120} height={240} style={{width:'120px',height:'240px'}} marginWidth="0" marginHeight="0" scrolling="no" frameBorder="0"
+                      src={post[0].iframe2}></iframe>
+              :
+              ''
+          }
+
+          {
+            post[0].iframe3 ?
+              <iframe width={120} height={240} style={{width:'120px',height:'240px'}} marginWidth="0" marginHeight="0" scrolling="no" frameBorder="0"
+                      src={post[0].iframe3}></iframe>
               :
               ''
           }

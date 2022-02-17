@@ -959,3 +959,16 @@ body.dark .logotype {
 .slider-card-excerpt .more-link {
   display: none;
 }
+
+.average_time {
+  color: #707a8a;
+  font-size: 14px;
+}
+
+body.dark .slick-dots li {
+  background-color: white !important;
+}
+
+body.dark .slick-dots li.slick-active {
+  background-color: darkgrey !important;
+}
