@@ -21,8 +21,14 @@ function PostCard(props) {
 
 
       </div>
-      <div className="post-card-date">
-        <span>{post.date.split('T')[0]}</span>
+      <div className="d-flex justify-between items-center">
+        <div className="post-card-date">
+          <span>{post.date.split('T')[0]}</span>
+        </div>
+        <div className="d-flex counts">
+          <span className="views">{post.views_count} views</span>
+          <span className="likes">{post.likes_count} likes</span>
+        </div>
       </div>
     </div>
     </Link>

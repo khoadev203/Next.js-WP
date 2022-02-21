@@ -320,7 +320,7 @@ a.sliderCard:hover {
   display: flex;
   flex-direction: row;
   margin-top: 75px;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
   flex-direction: row;
   flex-wrap: wrap;
@@ -971,4 +971,29 @@ body.dark .slick-dots li {
 
 body.dark .slick-dots li.slick-active {
   background-color: darkgrey !important;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.likes, .views {
+  font-size: 13px;
+  line-height: 13px;
+}
+
+.likes {
+  margin-left: 14px;
+}
+
+.counts {
+  margin-top: 20px;
 }
