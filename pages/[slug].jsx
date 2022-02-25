@@ -6,7 +6,7 @@ import {fetchRelatedPosts, fetchSiteInfos} from "../lib/api";
 import Head from "next/head";
 import SocialShare from "../components/social-share";
 import AppContext from "../lib/AppContext";
-
+import {username, application_password} from "../lib/constant";
 function Post(props) {
   const {post, media, tags, relatedPosts, avg_time} = props
   const [url, setUrl] = useState('')
@@ -21,18 +21,22 @@ function Post(props) {
       const infos = await fetchSiteInfos();
       context.setSiteInfos(infos)
     }
-    // fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp/v2/posts/${post[0].id}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp/v2/posts/${post[0].id}`, {
       // make sure to authenticate or pass the X-WP-Nonce value as a header
-      // method: 'POST',
-      // body: JSON.stringify({
-      //   "views_count": 1
-      // })
-      // })
-      // .then(response => response.json())
-      // .then(data => {
-      //   console.log(data)
-      // })
-      // .catch(error => console.log('error', error));
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic '+btoa(username + ':' + application_password)
+      },
+      body: JSON.stringify({
+        "views_count": post[0].views_count+1
+      })
+      })
+      .then(response => response.json())
+      .then(data => {
+        // console.log(data)
+      })
+      .catch(error => console.log('error', error));
   }, [])
 
   return(
@@ -93,25 +97,25 @@ function Post(props) {
         </article>
         <aside>
           {
-            post[0].iframe1 ?
-              <iframe width={120} height={240} style={{width:'120px',height:'240px'}} marginWidth="0" marginHeight="0" scrolling="no" frameBorder="0"
-                      src={post[0].iframe1}></iframe>
+            post[0].meta.iframe1 ?
+              <iframe width={120} height={240} style={{width:'120px',height:'240px',display:'block !important'}} marginWidth="0" marginHeight="0" scrolling="no" frameBorder="0"
+                      src={`https:${post[0].meta.iframe1}`}></iframe>
               :
               ''
           }
 
           {
-            post[0].iframe2 ?
-              <iframe width={120} height={240} style={{width:'120px',height:'240px'}} marginWidth="0" marginHeight="0" scrolling="no" frameBorder="0"
-                      src={post[0].iframe2}></iframe>
+            post[0].meta.iframe2 ?
+              <iframe width={120} height={240} style={{width:'120px',height:'240px',display:'block !important'}} marginWidth="0" marginHeight="0" scrolling="no" frameBorder="0"
+                      src={`https:${post[0].meta.iframe2}`}></iframe>
               :
               ''
           }
 
           {
-            post[0].iframe3 ?
-              <iframe width={120} height={240} style={{width:'120px',height:'240px'}} marginWidth="0" marginHeight="0" scrolling="no" frameBorder="0"
-                      src={post[0].iframe3}></iframe>
+            post[0].meta.iframe3 ?
+              <iframe width={120} height={240} style={{width:'120px',height:'240px',display:'block !important'}} marginWidth="0" marginHeight="0" scrolling="no" frameBorder="0"
+                      src={`https:${post[0].meta.iframe3}`}></iframe>
               :
               ''
           }

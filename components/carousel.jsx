@@ -20,7 +20,7 @@ function Carousel(props) {
     <div>
       <Slider {...settings} className="container slider-container">
         {
-          featuredPosts ? featuredPosts.map((post) => {
+          featuredPosts ? featuredPosts.filter(post => post.meta.featured == 'true').map((post) => {
             return (
               <Link href={`/${post.slug}`} key={`sliderCard${post.id}`}>
                 <a className="sliderCard">

@@ -992,6 +992,7 @@ body.dark .slick-dots li.slick-active {
 
 .likes {
   margin-left: 14px;
+  cursor: pointer;
 }
 
 .counts {
