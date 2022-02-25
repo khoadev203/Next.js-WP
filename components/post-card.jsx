@@ -1,37 +1,46 @@
-import React,{ useEffect, useState, useRef}  from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faHeart } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import {username, application_password} from "../lib/constant";
+import { username, application_password } from "../lib/constant";
 
 function PostCard(props) {
   const { post } = props;
-  const [card, setCard] = useState(post)
+  const [card, setCard] = useState(post);
+  const [likes, setLikes] = useState("");
   const likesSpan = useRef(null);
 
   function likesCount(post) {
+    var count = 1;
+    if (likes != "") count = -1;
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/wp/v2/posts/${post.id}`, {
       // make sure to authenticate or pass the X-WP-Nonce value as a header
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic '+btoa(username + ':' + application_password)
+        "Content-Type": "application/json",
+        Authorization: "Basic " + btoa(username + ":" + application_password),
       },
+      // body: JSON.stringify({
+      //   likes_count: parseInt(card.likes_count) + count,
+      // }),
       body: JSON.stringify({
-        "likes_count": card.likes_count + 1
+        acf: {
+          likes_count: parseInt(card.likes_count) + count,
+        },
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCard(data);
+        setLikes(count == 1 ? "active" : "");
+        likesSpan.current.innerText = data.likes_count + "\u00A0";
       })
-      })
-      .then(response => response.json())
-      .then(data => {
-        // console.log(data)
-        setCard(data)
-        likesSpan.current.innerText = `${parseInt(card.likes_count)+1} likes`;
-      })
-      .catch(error => console.log('error', error));
-      
+      .catch((error) => console.log("error", error));
   }
 
   return (
     <div>
-      <Link href={`/${post.slug}`} >
+      <Link href={`/${post.slug}`}>
         <div className="post-card">
           <div className="post-card-banner">
             {post.featured_media &&
@@ -73,9 +82,14 @@ function PostCard(props) {
           <span>{post.date.split("T")[0]}</span>
         </div>
         <div className="d-flex counts">
-          <span className="views">{post.views_count} views</span>
-          <span className="likes" onClick={()=>likesCount(post)} ref={likesSpan}>
-            {post.likes_count} likes
+          <span className="views">
+            <p>{post.views_count}&nbsp; </p>
+            <FontAwesomeIcon icon={faEye} />
+          </span>
+
+          <span className="likes" onClick={() => likesCount(post)}>
+            <p ref={likesSpan}>{post.likes_count}&nbsp; </p>
+            <FontAwesomeIcon icon={faHeart} className={likes} />
           </span>
         </div>
       </div>
